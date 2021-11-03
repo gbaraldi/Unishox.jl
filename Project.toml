@@ -3,8 +3,11 @@ uuid = "e63e2b3a-53a6-427d-87f9-f7afaee6e6e3"
 authors = ["Gabriel Baraldi <baraldi@usp.br> and contributors"]
 version = "0.1.0"
 
+[deps]
+Unishox_jll = "3d704607-676d-54ad-a58f-27926b53472b"
+
 [compat]
-julia = "1"
+julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
