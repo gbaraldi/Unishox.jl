@@ -16,13 +16,16 @@ julia> using Unishox
 
 julia> s = "😆I can do emojis"
 "😆I can do emojis"
+
 julia> sizeof(s)
 19
-compressed = compress(s)
+
 julia> compressed = compress(s)
 "\x9f\xc0R\xe3\x05\xaeg\x17T\x9f\x9a\xfd\xbd\x17"
+
 julia> sizeof(compressed)
 14
+
 julia> decompress(compressed)
 "😆I can do emojis"
 ```
