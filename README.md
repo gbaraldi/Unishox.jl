@@ -30,4 +30,4 @@ julia> decompress(compressed)
 "😆I can do emojis"
 ```
 
-This package was based on the [**Shoco.jl**](https://github.com/ararslan/Shoco.jl) package, but it know supports modern julia and Windows.
+This package is based on the [**Shoco.jl**](https://github.com/ararslan/Shoco.jl) package.
