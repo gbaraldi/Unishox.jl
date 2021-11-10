@@ -45,26 +45,3 @@ using Unishox_jll
 
     
 end
-using Unishox
-s = "😆I can do emojis"
-compress(s)
-using Unishox_jll  
-s = "😆I can do emojis"
-compressed = Array{Cchar}(undef, sizeof(s))
-
-nbytes = ccall((:unishox2_compress_simple, libunishox), Cint,
-                        (Ptr{Cchar}, Cint, Ptr{Cchar}),
-                        s, sizeof(s), compressed)
-compressed = compressed[1:nbytes]
-
-compressed[end] == Cchar(0) || push!(compressed, Cchar(0))
-
-compre = unsafe_string(pointer(compressed))
-decompressed = Array{Cchar}(undef, 3* sizeof(compre))
-nbytes2 = ccall((:unishox2_decompress_simple, libunishox), Cint,
-                        (Ptr{Cchar}, Cint, Ptr{Cchar}),
-                        compre, sizeof(compre), decompressed)
-
-decompressed = decompressed[1:nbytes2]
-decompressed[end] == Cchar(0) || push!(decompressed, Cchar(0))
-unsafe_string(pointer(decompressed))
