@@ -1,7 +1,7 @@
 name = "Unishox"
 uuid = "e63e2b3a-53a6-427d-87f9-f7afaee6e6e3"
 authors = ["Gabriel Baraldi <baraldi@usp.br> and contributors"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 Unishox_jll = "3d704607-676d-54ad-a58f-27926b53472b"

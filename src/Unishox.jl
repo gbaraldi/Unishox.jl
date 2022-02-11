@@ -3,7 +3,12 @@ module Unishox
 using Unishox_jll   
     
     export compress, decompress
-    
+
+    """
+        compress(s::AbstractString)
+
+    Compresses a string using the unishox library and returns it.
+    """
     function compress(s::AbstractString)
         isempty(s) && return ""
 
@@ -15,32 +20,40 @@ using Unishox_jll
                         (Ptr{Cchar}, Cint, Ptr{Cchar}),
                         s, sizeof(s), compressed)
 
-        # Failed compression is shoco's fault, not ours >_>
+        # Failed compression is unishox's fault, not ours >_>
         nbytes > 0 || throw(ErrorException("Compression failed for input $s"))
 
         compressed = compressed[1:nbytes]
-        compressed[end] == Cchar(0) || push!(compressed, Cchar(0))
 
-        return unsafe_string(pointer(compressed))
+        return unsafe_string(pointer(compressed), nbytes)
     end
 
-
+    """
+        decompress(s::AbstractString)
+    
+    Decompresses a string previously compressed by unishox and returns it.
+    """
     function decompress(s::AbstractString)
         isempty(s) && return ""
-
-        # The decompressed string will be at most twice as long as the input
+        
         decompressed = Array{Cchar}(undef, 3 * sizeof(s))
 
         nbytes = ccall((:unishox2_decompress_simple, libunishox), Cint,
                         (Ptr{Cchar}, Cint, Ptr{Cchar}),
                         s, sizeof(s), decompressed)
 
+        if nbytes > 3 * sizeof(s)
+            decompressed = Array{Cchar}(undef, nbytes + 2)
+            nbytes = ccall((:unishox2_decompress_simple, libunishox), Cint,
+                        (Ptr{Cchar}, Cint, Ptr{Cchar}),
+                        s, sizeof(s), decompressed)
+        end
+
         nbytes > 0 || throw(ErrorException("Decompression failed for input $s"))
 
         decompressed = decompressed[1:nbytes]
-        decompressed[end] == Cchar(0) || push!(decompressed, Cchar(0))
 
-    return unsafe_string(pointer(decompressed))
+    return unsafe_string(pointer(decompressed), nbytes)
     end
 
     
