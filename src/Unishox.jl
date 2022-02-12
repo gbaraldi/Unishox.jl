@@ -12,8 +12,8 @@ using Unishox_jll
     function compress(s::AbstractString)
         isempty(s) && return ""
 
-        # The output should be no longer than the input
-        compressed = Array{Cchar}(undef, sizeof(s))
+        # The output is usually smaller than the input but there's no such guarantee
+        compressed = Array{Cchar}(undef, 3*sizeof(s))
 
         # The function modifies `compressed` and returns the number of bytes written
         nbytes = ccall((:unishox2_compress_simple, libunishox), Cint,
