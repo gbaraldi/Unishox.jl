@@ -13,7 +13,7 @@ using Unishox_jll
         isempty(s) && return ""
 
         # The output is usually smaller than the input but there's no such guarantee
-        compressed = Array{Cchar}(undef, 2*sizeof(s))
+        compressed = Array{Cchar}(undef, 3*sizeof(s))
 
         # The function modifies `compressed` and returns the number of bytes written
         nbytes = ccall((:unishox2_compress_simple, libunishox), Cint,
