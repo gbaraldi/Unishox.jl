@@ -8,6 +8,7 @@ It's algorithms are optimized for short Unicode strings. Compression is performe
 
 Two functions are exported by this package: `compress` and `decompress`.
 Both accept a single `AbstractString` argument and return a `String`.
+It's important to note that the output from `compress` may not be valid UTF-8, which the `String` type doesn't care about, but your use case might.
 
 Here's an example using the functions at the REPL.
 
